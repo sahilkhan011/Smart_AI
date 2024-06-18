@@ -1,0 +1,37 @@
+#main {
+  width: 100%;
+  height: calc(100vh - 70px);
+  min-height: 300px;
+}
+
+.inputContainer {
+  max-width: 550px;
+  background-color: rgba(225, 225, 225, 1);
+  border-radius: 20px;
+  padding: 5px;
+}
+.inputContainer input {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 2;
+  border: none;
+  background-color: transparent;
+  outline: none;
+}
+.inputContainer button {
+  margin: auto;
+  padding: 5px;
+  width: 40px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background-color: transparent;
+  color: rgb(132, 132, 132);
+  border: 1px solid rgb(132, 132, 132);
+}
+.inputContainer button.active {
+  color: rgb(0, 0, 0);
+  border: 1px solid rgb(0, 0, 0);
+}

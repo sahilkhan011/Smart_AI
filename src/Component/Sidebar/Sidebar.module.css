@@ -1,0 +1,73 @@
+#sidebarWrapper {
+  position: relative;
+  z-index: 100;
+  width: 250px;
+  height: calc(100vh - 50px);
+  transition: width 0.3s ease-in-out;
+  overflow-x: scroll;
+
+  background-color: #e1d6ee;
+}
+
+/* Custom scrollbar for Webkit-based browsers */
+#sidebarWrapper::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+#sidebarWrapper::-webkit-scrollbar-thumb {
+  background: #888; /* Color of the scrollbar thumb */
+  border-radius: 5px; /* Rounded corners of the scrollbar thumb */
+}
+
+#sidebarWrapper::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+#sidebarWrapper::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Color of the scrollbar track */
+  border-radius: 5px; /* Rounded corners of the scrollbar track */
+}
+
+#sidebarWrapper.isClose {
+  width: 0px;
+}
+
+@media (max-width: 991.98px) {
+  #sidebarWrapper {
+    position: fixed;
+    z-index: 100;
+  }
+}
+
+/* Sidebar.module.css */
+
+.linkContainer {
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  padding: 10px; /* Adjust padding as needed */
+  border-radius: 8px; /* Rounded corners */
+  text-decoration: none; /* Remove default underline */
+  color: inherit; /* Inherit text color */
+}
+
+.linkContainer:hover {
+  background-color: #f0f0f0; /* Light background on hover */
+}
+.linkContainer.active {
+  background-color: #f0f0f0; /* Light background on hover */
+}
+
+.linkIcon {
+  font-size: 20px; /* Fixed icon size */
+}
+
+.linkContent {
+  margin: 0px;
+  padding: 0px;
+  margin-left: 10px; /* Margin between icon and text */
+
+  white-space: nowrap; /* Prevents the text from wrapping */
+  overflow: hidden; /* Hides overflowed text */
+  text-overflow: ellipsis; /* Displays an ellipsis ('...') when the text is too long */
+}
