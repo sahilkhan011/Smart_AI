@@ -4,10 +4,8 @@ import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import { IoSend } from "react-icons/io5";
 import { SmartAIContext } from "../../store/MyContextProvider";
-import { useNavigate } from "react-router-dom";
 
 const NewChat = () => {
-  const navigate = useNavigate();
   const { createChat } = useContext(SmartAIContext);
   const [inputValue, setInputValue] = useState("");
 
@@ -15,22 +13,7 @@ const NewChat = () => {
     if (inputValue === "") {
       alert("Please enter a prompt");
     } else {
-      const currentdate = new Date().toISOString(); // or another format you prefer
-      const newChat = {
-        id: Math.random().toString(36).substr(2, 9), // generates a unique string ID
-        title: inputValue.slice(0, 20),
-        created_at: currentdate,
-        messages: [
-          {
-            message_id: Math.random().toString(36).substr(2, 9),
-            sender: "user",
-            text: inputValue,
-            timestamp: currentdate,
-          },
-        ],
-      };
-      createChat(newChat);
-      navigate(`chat/${newChat.id}`);
+      createChat("6672cf0aa7d6929e9dbd198c", inputValue);
     }
   };
 

@@ -17,10 +17,10 @@ const Sidebar = ({ isSidebarOpen }) => {
       <div className="">
         {allChats.map((chat) => (
           <Link
-            key={chat.id}
-            to={`/chat/${chat.id}`}
+            key={chat._id}
+            to={`/chat/${chat._id}`}
             className={`${style.linkContainer} d-flex ${
-              location.pathname === `/chat/${chat.id}` ? style.active : ""
+              location.pathname === `/chat/${chat._id}` ? style.active : ""
             }`}
           >
             <span className={`${style.linkContent}`}>{chat.title}</span>

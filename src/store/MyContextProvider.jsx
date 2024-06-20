@@ -1,61 +1,41 @@
 /* eslint-disable react/prop-types */
-import chatsData from "./chats.json";
 import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { fetchChats, insertNewChat } from "./ApiCalls.jsx";
 
+// Define the SmartAIContext with default values
 export const SmartAIContext = createContext({
   allChats: [],
   createChat: () => {},
-  currentChat: {},
-  setCurrentChatId: () => {},
-  addPrompt: () => {},
 });
 
-const fetchChats = async () => {
-  try {
-    // Simulating fetching data from a JSON file
-    return chatsData;
-  } catch (error) {
-    console.error("Error fetching chats:", error);
-    return [];
-  }
-};
-
+// Context Provider Component
 function MyContextProvider({ children }) {
+  const navigate = useNavigate();
   const [allChats, setAllChats] = useState([]);
-  const [currentChat, setCurrentChat] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
-      const chats = await fetchChats();
+      const chats = await fetchChats("6672cf0aa7d6929e9dbd198c");
       setAllChats(chats);
-      console.log("All Chats Updated: ", chats); // Log the updated state
+      console.log("All Chats Updated:", chats); // Log the updated state
     };
     fetchData();
   }, []);
 
-  const createChat = (newChat) => {
-    setAllChats((prevChats) => {
-      return [newChat, ...prevChats];
-    });
-  };
-  const addPrompt = (message) => {
-    setCurrentChat((prevChat) => ({
-      ...prevChat,
-      messages: [...prevChat.messages, message],
-    }));
-  };
-
-  const setCurrentChatId = (chatId) => {
-    console.log("set current chat");
-    const chat = allChats.find((chat) => chat.id == chatId);
-    //console.log("Chat:", chat);
-    setCurrentChat(chat);
+  const createChat = async (user_id_fk, text) => {
+    try {
+      const newChat = await insertNewChat(user_id_fk, text);
+      setAllChats((prevChats) => [newChat, ...prevChats]);
+      navigate(`/chat/${newChat._id}`);
+    } catch (error) {
+      console.error("Error creating chat:", error);
+      // Handle error appropriately, e.g., show a notification to the user
+    }
   };
 
   return (
-    <SmartAIContext.Provider
-      value={{ allChats, createChat, currentChat, setCurrentChatId, addPrompt }}
-    >
+    <SmartAIContext.Provider value={{ allChats, createChat }}>
       {children}
     </SmartAIContext.Provider>
   );

@@ -1,9 +1,8 @@
 /* eslint-disable react/prop-types */
 import style from "./OldChat.module.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { IoSend } from "react-icons/io5";
-import { SmartAIContext } from "../../store/MyContextProvider";
-import { useLocation } from "react-router-dom";
+import { ChatContext } from "../../store/WebSocketContext";
 
 const UserText = ({ message }) => {
   return (
@@ -19,7 +18,7 @@ const UserText = ({ message }) => {
       <img
         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
         alt="avatar 1"
-        style={{ width: "45px", height: "100%" }}
+        style={{ width: "45px", height: "45px" }}
       />
     </div>
   );
@@ -30,7 +29,7 @@ const AssistantText = ({ message }) => {
       <img
         src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
         alt="avatar 1"
-        style={{ width: "45px", height: "100%" }}
+        style={{ width: "45px", height: "45px" }}
       />
       <div>
         <p className="small p-2 ms-3 mb-1 rounded-3 bg-body-tertiary">
@@ -45,47 +44,31 @@ const AssistantText = ({ message }) => {
 };
 
 const OldChat = () => {
-  const { currentChat, setCurrentChatId, addPrompt } =
-    useContext(SmartAIContext);
-  const location = useLocation();
-  const pathname = location.pathname;
-  const chatId = pathname.substring(pathname.lastIndexOf("/") + 1);
-
-  useEffect(() => {
-    setCurrentChatId(chatId); // Call fetchChat immediately
-  }, [chatId]); // Empty dependency array to run effect only once on mount
-
+  const { currentChat, addPrompt } = useContext(ChatContext);
   const [inputValue, setInputValue] = useState("");
 
   const handleClick = () => {
     if (inputValue === "") {
       alert("Please enter a prompt");
     } else {
-      const currentdate = new Date().toISOString(); // or another format you prefer
-      const newPrompt = {
-        message_id: Math.random().toString(36).substr(2, 9),
-        sender: "user",
-        text: inputValue,
-        timestamp: currentdate,
-      };
-      console.log(newPrompt);
-      addPrompt(newPrompt);
-      //setInputValue(null);
+      console.log(inputValue);
+      addPrompt("6672cf0aa7d6929e9dbd198c", inputValue);
+      setInputValue("");
     }
   };
 
   return (
-    <main id={style.main} className="d-flex flex-column container">
+    <main id={style.main} className="d-flex flex-column container m-auto">
       <div
         className="container-fluid d-flex flex-column justify-content-center align-items-center"
-        style={{ height: "calc(100vh - 150px)" }}
+        style={{ height: "calc(100vh - 150px)", padding: 0 }}
       >
         <div
-          className="pt-3 pe-3 w-100"
+          className="pt-3 w-100 d-flex flex-column-reverse"
           style={{ flexGrow: 1, overflowY: "scroll" }}
         >
-          {currentChat?.messages ? (
-            currentChat.messages.map((message, index) =>
+          {currentChat ? (
+            currentChat.map((message, index) =>
               message.sender === "user" ? (
                 <UserText key={index} message={message} />
               ) : (
@@ -95,6 +78,7 @@ const OldChat = () => {
           ) : (
             <div>Error fetching messages.</div>
           )}
+          {/* <div ref={refreshContainerRef}>Refresh</div> */}
         </div>
       </div>
 
@@ -109,6 +93,7 @@ const OldChat = () => {
             onChange={(e) => {
               setInputValue(e.target.value);
             }}
+            value={inputValue}
             onKeyDown={(e) => {
               e.key === "Enter" && handleClick();
             }}
