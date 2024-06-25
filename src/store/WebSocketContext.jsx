@@ -58,7 +58,7 @@ function WebSocketContextProvider({ children }) {
   const addPrompt = (text) => {
     const prompt = {
       action: "insertPrompt",
-      user_id_fk: "66793d018b896e20d004d97d",
+      user_id_fk: "6672cf0aa7d6929e9dbd198c",
       chat_id_fk: chatId,
       text: text,
     };
