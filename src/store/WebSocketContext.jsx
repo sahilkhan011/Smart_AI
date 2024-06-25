@@ -2,6 +2,7 @@
 import { createContext, useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { fetchChatMessages } from "./ApiCalls.jsx";
+import { userId, wsbaseUrl } from "./store.jsx";
 
 export const ChatContext = createContext({
   currentChats: [],
@@ -28,7 +29,7 @@ function WebSocketContextProvider({ children }) {
 
   useEffect(() => {
     // Create WebSocket connection
-    ws.current = new WebSocket("ws://localhost:8585");
+    ws.current = new WebSocket(`${wsbaseUrl}`);
 
     // Connection opened
     ws.current.onopen = () => {
@@ -58,7 +59,7 @@ function WebSocketContextProvider({ children }) {
   const addPrompt = (text) => {
     const prompt = {
       action: "insertPrompt",
-      user_id_fk: "6672cf0aa7d6929e9dbd198c",
+      user_id_fk: userId,
       chat_id_fk: chatId,
       text: text,
     };
