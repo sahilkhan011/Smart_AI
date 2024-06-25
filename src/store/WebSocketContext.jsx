@@ -8,7 +8,7 @@ export const ChatContext = createContext({
   addPrompt: () => {},
 });
 
-function ChatContextProvider({ children }) {
+function WebSocketContextProvider({ children }) {
   const [currentChat, setCurrentChat] = useState([]);
   const [chatId, setChatId] = useState("");
   const location = useLocation();
@@ -55,10 +55,10 @@ function ChatContextProvider({ children }) {
     };
   }, []);
 
-  const addPrompt = (userId, text) => {
+  const addPrompt = (text) => {
     const prompt = {
       action: "insertPrompt",
-      user_id_fk: userId,
+      user_id_fk: "66793d018b896e20d004d97d",
       chat_id_fk: chatId,
       text: text,
     };
@@ -76,4 +76,4 @@ function ChatContextProvider({ children }) {
   );
 }
 
-export default ChatContextProvider;
+export default WebSocketContextProvider;

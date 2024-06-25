@@ -4,7 +4,7 @@ import { useState } from "react";
 import Header from "./Component/Header/Header";
 import NewChat from "./Component/NewChatPage/NewChat";
 import OldChat from "./Component/OldChatPage/OldChat";
-import ChatContextProvider from "./store/WebSocketContext.jsx";
+import WebSocketContextProvider from "./store/WebSocketContext.jsx";
 import MyContextProvider from "./store/MyContextProvider.jsx";
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -34,9 +34,9 @@ function App() {
                     <Route
                       path="/chat/:id"
                       element={
-                        <ChatContextProvider>
+                        <WebSocketContextProvider>
                           <OldChat />
-                        </ChatContextProvider>
+                        </WebSocketContextProvider>
                       }
                     />
                   </Routes>

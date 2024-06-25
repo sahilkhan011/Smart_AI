@@ -52,7 +52,7 @@ const OldChat = () => {
       alert("Please enter a prompt");
     } else {
       console.log(inputValue);
-      addPrompt("6672cf0aa7d6929e9dbd198c", inputValue);
+      addPrompt(inputValue);
       setInputValue("");
     }
   };

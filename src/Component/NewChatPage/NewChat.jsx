@@ -13,7 +13,7 @@ const NewChat = () => {
     if (inputValue === "") {
       alert("Please enter a prompt");
     } else {
-      createChat("6672cf0aa7d6929e9dbd198c", inputValue);
+      createChat(inputValue);
     }
   };
 

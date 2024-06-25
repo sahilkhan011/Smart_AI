@@ -1,9 +1,11 @@
 import axios from "axios";
+
+const user_id_fk = "6672cf0aa7d6929e9dbd198c";
 // Function to insert a new chat and add the first message
-export const insertNewChat = async (user_id_fk, text) => {
+export const insertNewChat = async (text) => {
   try {
     // Create a new chat
-    const chatResponse = await axios.post("http://localhost:8585/api/chat/", {
+    const chatResponse = await axios.post("http://localhost:8585/api/chats/", {
       user_id_fk: user_id_fk,
       title: text.slice(0, 20),
     });
@@ -13,7 +15,7 @@ export const insertNewChat = async (user_id_fk, text) => {
 
     // Add a message to the new chat
     const messageResponse = await axios.post(
-      "http://localhost:8585/api/message/addPrompt",
+      "http://localhost:8585/api/messages/",
       {
         user_id_fk: user_id_fk,
         chat_id_fk: newChatId,
@@ -31,10 +33,10 @@ export const insertNewChat = async (user_id_fk, text) => {
 };
 
 // Function to fetch all chats
-export const fetchChats = async (user_id_fk) => {
+export const fetchChats = async () => {
   try {
     const response = await axios.get(
-      `http://localhost:8585/api/chat/getAllChats/${user_id_fk}`
+      `http://localhost:8585/api/chats/${user_id_fk}`
     );
     console.log("Chats:", response.data);
 
@@ -53,7 +55,7 @@ export const fetchChatMessages = async (chatId, timestamp) => {
     }
 
     const res = await axios.get(
-      `http://localhost:8585/api/message/${chatId}/${timestamp}`
+      `http://localhost:8585/api/messages/${chatId}/${timestamp}`
     );
     console.log("messages:", res);
 

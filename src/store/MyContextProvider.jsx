@@ -16,16 +16,16 @@ function MyContextProvider({ children }) {
 
   useEffect(() => {
     const fetchData = async () => {
-      const chats = await fetchChats("6672cf0aa7d6929e9dbd198c");
+      const chats = await fetchChats();
       setAllChats(chats);
       console.log("All Chats Updated:", chats); // Log the updated state
     };
     fetchData();
   }, []);
 
-  const createChat = async (user_id_fk, text) => {
+  const createChat = async (text) => {
     try {
-      const newChat = await insertNewChat(user_id_fk, text);
+      const newChat = await insertNewChat(text);
       setAllChats((prevChats) => [newChat, ...prevChats]);
       navigate(`/chat/${newChat._id}`);
     } catch (error) {
